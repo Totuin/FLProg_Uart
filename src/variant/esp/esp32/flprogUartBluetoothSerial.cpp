@@ -1,5 +1,6 @@
-#include "flprogUartBluetoothSerial_Basic.h"
-#ifdef FLPROG_CORE_ESP32_BASIC
+#include "flprogUartBluetoothSerial.h"
+
+#if defined(CONFIG_BT_ENABLED) && defined(CONFIG_BLUEDROID_ENABLED)
 
 FLProgBluetoothUart::FLProgBluetoothUart(String name)
 {

@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "flprogUtilites.h"
 
-#ifdef FLPROG_CORE_ESP8266
+#ifdef ARDUINO_ARCH_ESP8266
 
 namespace flprog
 {

@@ -2,33 +2,6 @@
 #include "Arduino.h"
 #include "flprogUtilites.h"
 
-#define FLPROG_HARDWARE_UART 0
-#define FLPROG_USB_UART 1
-
-#define FLPROG_SPEED_300 0
-#define FLPROG_SPEED_600 1
-#define FLPROG_SPEED_1200 2
-#define FLPROG_SPEED_2400 3
-#define FLPROG_SPEED_4800 4
-#define FLPROG_SPEED_9600 5
-#define FLPROG_SPEED_14400 6
-#define FLPROG_SPEED_19200 7
-#define FLPROG_SPEED_28800 8
-#define FLPROG_SPEED_38400 9
-#define FLPROG_SPEED_57600 10
-#define FLPROG_SPEED_115200 11
-
-#define FLPROG_PORT_STOP_BITS_1 1
-#define FLPROG_PORT_STOP_BITS_2 2
-
-#define FLPROG_PORT_DATA_BITS_5 5
-#define FLPROG_PORT_DATA_BITS_6 6
-#define FLPROG_PORT_DATA_BITS_7 7
-#define FLPROG_PORT_DATA_BITS_8 8
-
-#define FLPROG_PORT_PARITY_NONE 0
-#define FLPROG_PORT_PARITY_EVEN 1
-#define FLPROG_PORT_PARITY_ODD 2
 
 class FLProgUartBasic : public FLProgStream
 {
@@ -50,7 +23,6 @@ public:
 protected:
     virtual Stream *stream() { return uartPort(); };
     virtual bool hasStream() { return hasPort(); };
-
     virtual Stream *uartPort() { return 0; };
     uint32_t speedFromCode();
     int serialCodeForParametrs();
@@ -73,9 +45,14 @@ protected:
 #include "variant/due/flprogUartDUE.h"
 #endif
 
-#ifdef FLPROG_CORE_ESP
+#ifdef ARDUINO_ARCH_ESP8266
 #define FLPROG_EXISTS_SELECT_UART
-#include "variant/esp/flprogUartEsp.h"
+#include "variant/esp/esp8266/flprogUatrEsp8266.h"
+#endif
+
+#ifdef ARDUINO_ARCH_ESP32
+#define FLPROG_EXISTS_SELECT_UART
+#include "variant/esp/esp32/flprogUartEsp32.h"
 #endif
 
 #ifdef FLPROG_CORE_STM
@@ -88,3 +65,4 @@ protected:
 #define FLPROG_ANON_SELECT_UART
 #include "variant/anon/flprogUartAnon.h"
 #endif
+

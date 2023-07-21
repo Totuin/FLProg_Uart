@@ -1,5 +1,5 @@
 #include "flprogUatrEsp8266.h"
-#ifdef FLPROG_CORE_ESP8266
+#ifdef ARDUINO_ARCH_ESP8266
 SerialConfig flprog::serialModeFromParametrs(byte portDataBits, byte portStopBits, byte portParity)
 {
     return serialModeFromInt(serialCodeForParametrs(portDataBits, portStopBits, portParity));

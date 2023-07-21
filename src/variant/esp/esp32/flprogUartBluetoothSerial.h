@@ -1,8 +1,8 @@
 #pragma once
 #include "Arduino.h"
-#include "flprogUtilites.h"
+#include "flprogUart.h"
 
-#ifdef FLPROG_CORE_ESP32_BASIC
+#if defined(CONFIG_BT_ENABLED) && defined(CONFIG_BLUEDROID_ENABLED)
 
 #include "BluetoothSerial.h"
 
