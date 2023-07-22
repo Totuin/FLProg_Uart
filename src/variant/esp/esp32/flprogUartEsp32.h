@@ -3,6 +3,9 @@
 #include "flprogUart.h"
 
 #ifdef ARDUINO_ARCH_ESP32
+#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32S3
+#define FLPROG_USE_ESP32_USB_SERIAL
+#endif
 
 #include "flprogUartBluetoothSerial.h"
 
@@ -13,18 +16,20 @@ public:
     FLProgUart(uint8_t portNumber);
     FLProgUart(uint8_t portNumber, uint8_t newRxPin, uint8_t newTxPin);
     virtual void begin();
-    void begin(int32_t speed, int mode);
-    virtual bool hasPort() { return !(port == 0); };
+    virtual void begin(int32_t speed, int mode);
+    virtual void begin(int32_t speed);
+    virtual bool hasPort();
     virtual void restartPort();
 
 protected:
-    virtual Stream *uartPort() { return port; };
+    virtual Stream *uartPort();
+    virtual void resetPort();
     HardwareSerial *port;
     int serialModeFromParametrs();
     void setSerialMode(int16_t mode);
-
-private:
-    void setPort(uint8_t portNumber);
+    virtual void setPort();
+    virtual void stopPort();
+    virtual void startPort();
 };
 
 namespace flprog

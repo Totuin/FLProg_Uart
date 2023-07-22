@@ -116,3 +116,41 @@ void FLProgUartBasic::begin(int32_t speed)
     begin();
 }
 
+void FLProgUartBasic::changePins(uint16_t newRxPin, uint16_t newTxPin)
+{
+    if ((rxPin != newRxPin) || (txPin != newTxPin))
+    {
+        rxPin = newRxPin;
+        txPin = newTxPin;
+        restartPort();
+    }
+}
+
+void FLProgUartBasic::changePort(uint16_t newPort)
+{
+    if (newPort != number)
+    {
+        newPort = number;
+        if (hasPort())
+        {
+            stopPort();
+        }
+        resetPort();
+        setPort();
+        startPort();
+    }
+}
+
+void FLProgUartBasic::changePinsAndPort(uint16_t newPort, uint16_t newRxPin, uint16_t newTxPin)
+{
+    if ((rxPin != newRxPin) || (txPin != newTxPin) || (newPort != number))
+    {
+        rxPin = newRxPin;
+        txPin = newTxPin;
+        newPort = number;
+        stopPort();
+        resetPort();
+        setPort();
+        startPort();
+    }
+}

@@ -2,12 +2,11 @@
 #include "Arduino.h"
 #include "flprogUtilites.h"
 
-
 class FLProgUartBasic : public FLProgStream
 {
 public:
     virtual void begin(){};
-    void begin(int32_t speed);
+    virtual void begin(int32_t speed);
     uint8_t getPortSpeed() { return portSpeed; };
     uint8_t getPortDataBits() { return portDataBits; };
     uint8_t getPortStopBits() { return portStopBits; };
@@ -19,6 +18,9 @@ public:
     void setPortStopBits(uint8_t stopBits);
     void setPortParity(uint8_t parity);
     virtual void setDeviceName(String name){};
+    virtual void changePins(uint16_t newRxPin, uint16_t newTxPin);
+    virtual void changePort(uint16_t newPort);
+    virtual void changePinsAndPort(uint16_t newPort, uint16_t newRxPin, uint16_t newTxPin);
 
 protected:
     virtual Stream *stream() { return uartPort(); };
@@ -27,12 +29,18 @@ protected:
     uint32_t speedFromCode();
     int serialCodeForParametrs();
     void setCodeFromSpeed(int32_t speed);
+    virtual void setPort(){};
+    virtual void resetPort(){};
+    virtual void stopPort(){};
+    virtual void startPort(){};
+
     uint8_t portSpeed = FLPROG_SPEED_9600;
     uint8_t portDataBits = FLPROG_PORT_DATA_BITS_8;
     uint8_t portStopBits = FLPROG_PORT_STOP_BITS_1;
     uint8_t portParity = FLPROG_PORT_PARITY_NONE;
     int16_t rxPin = -1;
     int16_t txPin = -1;
+    uint8_t number = 0;
 };
 
 #ifdef FLPROG_CORE_AVR
@@ -65,4 +73,3 @@ protected:
 #define FLPROG_ANON_SELECT_UART
 #include "variant/anon/flprogUartAnon.h"
 #endif
-
