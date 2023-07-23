@@ -2,9 +2,6 @@
 #include "Arduino.h"
 #include "flprogUtilites.h"
 
-#define FLPROG_HARDWARE_UART 0
-#define FLPROG_USB_UART 1
-
 #define FLPROG_SPEED_300 0
 #define FLPROG_SPEED_600 1
 #define FLPROG_SPEED_1200 2
@@ -97,10 +94,18 @@ protected:
 #include "variant/esp/esp32/flprogUartEsp32.h"
 #endif
 
-#ifdef FLPROG_CORE_STM
+#ifdef ARDUINO_ARCH_STM32
 #define FLPROG_EXISTS_SELECT_UART
-#include "variant/stm/flprogUartStm.h"
+#include "variant/stm/stm32/flprogUartStm32.h"
 #endif
+
+
+#ifdef ARDUINO_ARCH_RP2040
+#define FLPROG_EXISTS_SELECT_UART
+#include "variant/rp2040/flprogRP2040.h"
+#endif
+
+
 
 #ifndef FLPROG_EXISTS_SELECT_UART
 #define FLPROG_EXISTS_SELECT_UART

@@ -68,26 +68,34 @@ bool FLProgBluetoothUart::hasPort()
 
 void FLProgBluetoothUart::restartPort()
 {
-    if (hasPort())
+
+    end();
+    begin();
+}
+
+void FLProgBluetoothUart::end()
+{
+    if (!hasPort())
     {
-#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
-        bluetoothPort->end();
-#endif
-        begin();
+        return;
     }
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
+    bluetoothPort->end();
+#endif
 }
 
 void FLProgBluetoothUart::begin()
 {
-#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
     if (hasPort())
     {
-        bluetoothPort->begin(deviceName);
-        if (isMaster)
-        {
-            bluetoothPort->connect(partnerName);
-        }
         return;
     }
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
+    bluetoothPort->begin(deviceName);
+    if (isMaster)
+    {
+        bluetoothPort->connect(partnerName);
+    }
+    return;
 #endif
 }

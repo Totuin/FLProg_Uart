@@ -18,13 +18,13 @@ public:
   void begin(int32_t speed, UARTClass::UARTModes mode = SERIAL_8N1, int16_t newRxPin = -2, int16_t newTxPin = -2);
   virtual bool hasPort();
   virtual void restartPort();
+  void end();
 
 protected:
   virtual Stream *uartPort();
   UARTClass::UARTModes serialModeFromParametrs();
   void setSerialMode(UARTClass::UARTModes mode);
   bool portIsInit = false;
-  void stopPort();
 };
 
 #endif

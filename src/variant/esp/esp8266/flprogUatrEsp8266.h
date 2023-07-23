@@ -32,12 +32,12 @@ public:
     void begin(int32_t speed, SerialConfig mode = SERIAL_8N1, int16_t newRxPin = -2, int16_t newTxPin = -2);
     virtual bool hasPort();
     virtual void restartPort();
+    void end();
 
 protected:
     virtual Stream *uartPort();
     SerialConfig serialModeFromParametrs();
     void setSerialMode(SerialConfig mode);
-    void stoptPort();
 };
 
 #endif

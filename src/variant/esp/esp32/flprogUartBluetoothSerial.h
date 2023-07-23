@@ -18,6 +18,7 @@ public:
     virtual bool hasPort();
     virtual void restartPort();
     virtual void begin();
+     void end();
 
 protected:
 #ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH

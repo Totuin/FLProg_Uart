@@ -29,7 +29,7 @@ FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
     number = portNumber;
 }
 
-void FLProgUart::stopPort()
+void FLProgUart::end()
 {
     if (!portIsInit)
     {

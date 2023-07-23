@@ -18,6 +18,7 @@ public:
     virtual void restartPort();
     virtual bool hasPort();
     virtual void begin();
+    void end();
 
 protected:
     SoftwareSerial *softwarePort;
@@ -31,12 +32,13 @@ public:
     virtual void begin(int32_t speed = 0, int mode = 0, int16_t newRxPin = -2, int16_t newTxPin = -2);
     virtual bool hasPort();
     virtual void restartPort();
+    void end();
 
 protected:
     virtual Stream *uartPort();
     int serialModeFromParametrs();
     void setSerialMode(int16_t mode);
-    void stopPort();
+    
 };
 
 #endif

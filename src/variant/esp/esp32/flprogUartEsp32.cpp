@@ -11,43 +11,36 @@ FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 
 void FLProgUart::restartPort()
 {
-    stopPort();
-    startPort();
+    end();
+    begin();
 }
 
-void FLProgUart::stopPort()
+void FLProgUart::end()
 {
-    if (hasPort())
+    if (!hasPort())
     {
-        if (number == 0)
-        {
+        return;
+    }
+    if (number == 0)
+    {
 #ifdef FLPROG_USE_ESP32_USBSERIAL
-            USBSerial.end();
+        USBSerial.end();
 #else
-            Serial.end();
+        Serial.end();
 #endif
-        }
+    }
 #ifdef FLPROG_USE_ESP32_SERIAL1
-        if (number == 1)
-        {
-            Serial1.end();
-        }
+    if (number == 1)
+    {
+        Serial1.end();
+    }
 #endif
 #ifdef FLPROG_USE_ESP32_SERIAL2
-        if (number == 2)
-        {
-            Serial2.end();
-        }
-#endif
-    }
-}
-
-void FLProgUart::startPort()
-{
-    if (hasPort())
+    if (number == 2)
     {
-        begin();
+        Serial2.end();
     }
+#endif
 }
 
 void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxPin)
@@ -68,33 +61,34 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
     {
         txPin = newTxPin;
     }
-    if (hasPort())
+    if (!hasPort())
     {
-        if (number == 0)
-        {
+        return;
+    }
+    if (number == 0)
+    {
 #ifdef FLPROG_USE_ESP32_USBSERIAL
-            USBSerial.begin(speedFromCode());
+        USBSerial.begin(speedFromCode());
 #else
 #ifdef FLPROG_USE_ESP32_SERIAL_FOR_USB
-            Serial.begin(speedFromCode());
+        Serial.begin(speedFromCode());
 #else
-            Serial.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
+        Serial.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
 #endif
-#endif
-        }
-#ifdef FLPROG_USE_ESP32_SERIAL1
-        if (number == 1)
-        {
-            Serial1.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
-        }
-#endif
-#ifdef FLPROG_USE_ESP32_SERIAL2
-        if (number == 2)
-        {
-            Serial2.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
-        }
 #endif
     }
+#ifdef FLPROG_USE_ESP32_SERIAL1
+    if (number == 1)
+    {
+        Serial1.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
+    }
+#endif
+#ifdef FLPROG_USE_ESP32_SERIAL2
+    if (number == 2)
+    {
+        Serial2.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
+    }
+#endif
 }
 
 Stream *FLProgUart::uartPort()

@@ -9,19 +9,26 @@ FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 
 void FLProgUart::restartPort()
 {
-    if (number == 0)
+    end();
+    begin();
+}
+
+void FLProgUart::end()
+{
+    if (number != 0)
     {
-        Serial.end();
-        begin();
+        return;
     }
+    Serial.end();
 }
 
 void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxPin)
 {
-    if (number == 0)
+    if (number != 0)
     {
-        Serial.begin();
+        return;
     }
+    Serial.begin();
 }
 
 Stream *FLProgUart::uartPort()

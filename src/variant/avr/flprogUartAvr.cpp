@@ -97,21 +97,28 @@ bool FLProgSoftwareUart::hasPort()
     return !(softwarePort == 0);
 }
 
+void FLProgSoftwareUart::end()
+{
+    if (!hasPort())
+    {
+        return;
+    }
+    softwarePort->end();
+}
+
 void FLProgSoftwareUart::restartPort()
 {
-    if (hasPort())
-    {
-        softwarePort->end();
-        begin();
-    }
+    end();
+    begin();
 }
 
 void FLProgSoftwareUart::begin()
 {
-    if (hasPort())
+    if (!hasPort())
     {
-        softwarePort->begin(speedFromCode());
+        return;
     }
+    softwarePort->begin(speedFromCode());
 }
 
 //--------------------------FLProgUart-----------------------
@@ -123,11 +130,11 @@ FLProgUart::FLProgUart(uint8_t portNumber = 0, int16_t newRxPin = -1, int16_t ne
 
 void FLProgUart::restartPort()
 {
-    stopPort();
+    end();
     begin();
 }
 
-void FLProgUart::stopPort()
+void FLProgUart::end()
 {
 #ifdef HAVE_HWSERIAL0
     if (number == 0)
