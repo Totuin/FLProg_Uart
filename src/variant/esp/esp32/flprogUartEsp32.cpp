@@ -2,46 +2,11 @@
 
 #ifdef ARDUINO_ARCH_ESP32
 
-FLProgUart::FLProgUart()
-{
-    setPort();
-}
-
-FLProgUart::FLProgUart(uint8_t portNumber, uint8_t newRxPin, uint8_t newTxPin)
+FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 {
     rxPin = newRxPin;
     txPin = newTxPin;
     number = portNumber;
-    setPort();
-}
-
-FLProgUart::FLProgUart(uint8_t portNumber)
-{
-    number = portNumber;
-    setPort();
-}
-
-void FLProgUart::setPort()
-{
-#ifndef FLPROG_USE_ESP32_USB_SERIAL
-    if (number == 0)
-    {
-        port = &Serial;
-    }
-#endif
-
-#if SOC_UART_NUM > 1
-    if (number == 1)
-    {
-        port = &Serial1;
-    }
-#endif
-#if SOC_UART_NUM > 2
-    if (number == 2)
-    {
-        port = &Serial2;
-    }
-#endif
 }
 
 void FLProgUart::restartPort()
@@ -54,18 +19,26 @@ void FLProgUart::stopPort()
 {
     if (hasPort())
     {
-#ifdef FLPROG_USE_ESP32_USB_SERIAL
         if (number == 0)
         {
-#if ARDUINO_USB_CDC_ON_BOOT
-            Serial.end();
-#else
+#ifdef FLPROG_USE_ESP32_USBSERIAL
             USBSerial.end();
+#else
+            Serial.end();
 #endif
-            return;
+        }
+#ifdef FLPROG_USE_ESP32_SERIAL1
+        if (number == 1)
+        {
+            Serial1.end();
         }
 #endif
-        port->end();
+#ifdef FLPROG_USE_ESP32_SERIAL2
+        if (number == 2)
+        {
+            Serial2.end();
+        }
+#endif
     }
 }
 
@@ -77,73 +50,98 @@ void FLProgUart::startPort()
     }
 }
 
-void FLProgUart::begin()
+void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxPin)
 {
+    if (speed > 0)
+    {
+        setCodeFromSpeed(speed);
+    }
+    if (mode > 0)
+    {
+        setSerialMode(mode);
+    }
+    if (newRxPin > -2)
+    {
+        rxPin = newRxPin;
+    }
+    if (newTxPin > -2)
+    {
+        txPin = newTxPin;
+    }
     if (hasPort())
     {
-#ifdef FLPROG_USE_ESP32_USB_SERIAL
         if (number == 0)
         {
-#if ARDUINO_USB_CDC_ON_BOOT
+#ifdef FLPROG_USE_ESP32_USBSERIAL
+            USBSerial.begin(speedFromCode());
+#else
+#ifdef FLPROG_USE_ESP32_SERIAL_FOR_USB
             Serial.begin(speedFromCode());
 #else
-            USBSerial.begin(speedFromCode());
+            Serial.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
 #endif
-            return;
+#endif
+        }
+#ifdef FLPROG_USE_ESP32_SERIAL1
+        if (number == 1)
+        {
+            Serial1.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
         }
 #endif
-        port->begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
+#ifdef FLPROG_USE_ESP32_SERIAL2
+        if (number == 2)
+        {
+            Serial2.begin(speedFromCode(), serialModeFromParametrs(), rxPin, txPin);
+        }
+#endif
     }
 }
 
 Stream *FLProgUart::uartPort()
 {
-#ifdef FLPROG_USE_ESP32_USB_SERIAL
-    if (number == 0)
-    {
-#if ARDUINO_USB_CDC_ON_BOOT
-        return &Serial;
-#else
-        return &USBSerial;
-#endif
-    }
-#endif
-    return port;
-}
 
-void FLProgUart::resetPort()
-{
-#ifdef FLPROG_USE_ESP32_USB_SERIAL
     if (number == 0)
     {
-        return;
+#ifdef FLPROG_USE_ESP32_USBSERIAL
+        return &USBSerial;
+#else
+        return &Serial;
+#endif
+    }
+#ifdef FLPROG_USE_ESP32_SERIAL1
+    if (number == 1)
+    {
+        return &Serial1;
     }
 #endif
-    port = 0;
+#ifdef FLPROG_USE_ESP32_SERIAL2
+    if (number == 2)
+    {
+        return &Serial2;
+    }
+#endif
+    return 0;
 }
 
 bool FLProgUart::hasPort()
 {
-#ifdef FLPROG_USE_ESP32_USB_SERIAL
     if (number == 0)
     {
         return true;
     }
+#ifdef FLPROG_USE_ESP32_SERIAL1
+    if (number == 1)
+    {
+        return true;
+    }
 #endif
-    return !(port == 0);
-}
-
-void FLProgUart::begin(int32_t speed, int mode)
-{
-    setCodeFromSpeed(speed);
-    setSerialMode(mode);
-    begin();
-}
-
-void FLProgUart::begin(int32_t speed)
-{
-    setCodeFromSpeed(speed);
-    begin();
+#ifdef FLPROG_USE_ESP32_SERIAL2
+    if (number == 2)
+    {
+        return true;
+    }
+#endif
+    return false;
 }
 
 int FLProgUart::serialModeFromParametrs()

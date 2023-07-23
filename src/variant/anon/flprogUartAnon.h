@@ -1,13 +1,19 @@
 #pragma once
 #include <Arduino.h>
-#include "flprogUtilites.h"
+#include "flprogUart.h"
 
 #ifdef FLPROG_ANON_SELECT_UART
-namespace flprog
+
+class FLProgUart : public FLProgUartBasic
 {
-    int serialModeFromInt(int16_t code);
-    int serialModeFromParametrs(byte portDataBits, byte portStopBits, byte portParity);
+public:
+    FLProgUart(uint8_t portNumber = 0, int16_t newRxPin = -1, int16_t newTxPin = -1);
+    void begin(int32_t speed = 0, int mode = 0, int16_t newRxPin = -2, int16_t newTxPin = -2);
+    virtual bool hasPort() { return number == 0; };
+    virtual void restartPort();
+
+protected:
+    virtual Stream *uartPort();
 };
 
-#include  "hardvareUart/hardwareUartAnon.h"
 #endif

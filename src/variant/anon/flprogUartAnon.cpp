@@ -1,87 +1,36 @@
 #include "flprogUartAnon.h"
+
 #ifdef FLPROG_ANON_SELECT_UART
-int flprog::serialModeFromParametrs(byte portDataBits, byte portStopBits, byte portParity)
+
+FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 {
-    return serialModeFromInt(serialCodeForParametrs(portDataBits, portStopBits, portParity));
+    number = portNumber;
 }
 
-int flprog::serialModeFromInt(int16_t code)
+void FLProgUart::restartPort()
 {
-    switch (code)
+    if (number == 0)
     {
-    case 0x00:
-        return SERIAL_5N1;
-        break;
-    case 0x02:
-        return SERIAL_6N1;
-        break;
-    case 0x04:
-        return SERIAL_7N1;
-        break;
-    case 0x08:
-        return SERIAL_5N2;
-        break;
-    case 0x0A:
-        return SERIAL_6N2;
-        break;
-    case 0x0C:
-        return SERIAL_7N2;
-        break;
-    case 0x20:
-        return SERIAL_5E1;
-        break;
-    case 0x22:
-        return SERIAL_6E1;
-        break;
-    case 0x28:
-        return SERIAL_5E2;
-        break;
-    case 0x2A:
-        return SERIAL_6E2;
-        break;
-    case 0x30:
-        return SERIAL_5O1;
-        break;
-    case 0x32:
-        return SERIAL_6O1;
-        break;
-    case 0x38:
-        return SERIAL_5O2;
-        break;
-    case 0x3A:
-        return SERIAL_6O2;
-        break;
-    case 0x06:
-        return SERIAL_8N1;
-        break;
-    case 0x0E:
-        return SERIAL_8N2;
-        break;
-    case 0x24:
-        return SERIAL_7E1;
-        break;
-    case 0x26:
-        return SERIAL_8E1;
-        break;
-    case 0x2C:
-        return SERIAL_7E2;
-        break;
-    case 0x2E:
-        return SERIAL_8E2;
-        break;
-    case 0x34:
-        return SERIAL_7O1;
-        break;
-    case 0x36:
-        return SERIAL_8O1;
-        break;
-    case 0x3C:
-        return SERIAL_7O2;
-        break;
-    case 0x3E:
-        return SERIAL_8O2;
-        break;
+        Serial.end();
+        begin();
     }
-    return SERIAL_8N1;
 }
+
+void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxPin)
+{
+    if (number == 0)
+    {
+        Serial.begin();
+    }
+}
+
+Stream *FLProgUart::uartPort()
+{
+    if (number == 0)
+    {
+        return &Serial;
+    }
+    return 0;
+};
+
 #endif

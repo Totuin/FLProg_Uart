@@ -1,11 +1,20 @@
 #include "flprogUartBluetoothSerial.h"
 
-#if defined(CONFIG_BT_ENABLED) && defined(CONFIG_BLUEDROID_ENABLED)
-
 FLProgBluetoothUart::FLProgBluetoothUart(String name)
 {
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
     bluetoothPort = new BluetoothSerial();
+#endif
     deviceName = name;
+}
+
+Stream *FLProgBluetoothUart::uartPort()
+{
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
+    return bluetoothPort;
+#else
+    return 0;
+#endif
 }
 
 void FLProgBluetoothUart::beBluetoothMaster()
@@ -50,20 +59,27 @@ void FLProgBluetoothUart::setPartnerName(String name)
 
 bool FLProgBluetoothUart::hasPort()
 {
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
     return !(bluetoothPort == 0);
+#else
+    return false;
+#endif
 }
 
 void FLProgBluetoothUart::restartPort()
 {
     if (hasPort())
     {
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
         bluetoothPort->end();
+#endif
         begin();
     }
 }
 
 void FLProgBluetoothUart::begin()
 {
+#ifdef FLPROG_USE_ESP32_ON_BOARD_BLUETOOTH
     if (hasPort())
     {
         bluetoothPort->begin(deviceName);
@@ -73,6 +89,5 @@ void FLProgBluetoothUart::begin()
         }
         return;
     }
-}
-
 #endif
+}
