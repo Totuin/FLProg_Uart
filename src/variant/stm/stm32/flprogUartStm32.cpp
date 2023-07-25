@@ -10,79 +10,79 @@ FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 
 Stream *FLProgUart::uartPort()
 {
-#ifdef FLPROG_STM32_USB_COM0
+#ifdef FLPROG_ESP32_HAS_UART0
     if (number == 0)
     {
         return &Serial;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL1
+#ifdef FLPROG_ESP32_HAS_UART1
     if (number == 1)
     {
         return &Serial1;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL2
+#ifdef FLPROG_ESP32_HAS_UART2
     if (number == 2)
     {
         return &Serial2;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL3
+#ifdef FLPROG_ESP32_HAS_UART3
     if (number == 3)
     {
         return &Serial3;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL4
+#ifdef FLPROG_ESP32_HAS_UART4
     if (number == 4)
     {
         return &Serial4;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL5
+#ifdef FLPROG_ESP32_HAS_UART5
     if (number == 5)
     {
         return &Serial5;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL6
+#ifdef FLPROG_ESP32_HAS_UART6
     if (number == 6)
     {
         return &Serial6;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL7
+#ifdef FLPROG_ESP32_HAS_UART7
     if (number == 7)
     {
         return &Serial7;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL8
+#ifdef FLPROG_ESP32_HAS_UART8
     if (number == 8)
     {
         return &Serial8;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL9
+#ifdef FLPROG_ESP32_HAS_UART9
     if (number == 9)
     {
         return &Serial9;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL10
+#ifdef FLPROG_ESP32_HAS_UART10
     if (number == 10)
     {
         return &Serial10;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP1
+#ifdef FLPROG_ESP32_HAS_UART11
     if (number == 11)
     {
         return &SerialLP1;
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP2
+#ifdef FLPROG_ESP32_HAS_UART12
     if (number == 12)
     {
         return &SerialLP2;
@@ -104,79 +104,79 @@ void FLProgUart::restartPort()
 
 void FLProgUart::end()
 {
-#ifdef FLPROG_STM32_USB_COM0
+#ifdef FLPROG_ESP32_HAS_UART0
     if (number == 0)
     {
         Serial.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL1
+#ifdef FLPROG_ESP32_HAS_UART1
     if (number == 1)
     {
         Serial1.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL2
+#ifdef FLPROG_ESP32_HAS_UART2
     if (number == 2)
     {
         Serial2.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL3
+#ifdef FLPROG_ESP32_HAS_UART3
     if (number == 3)
     {
         Serial3.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL4
+#ifdef FLPROG_ESP32_HAS_UART4
     if (number == 4)
     {
         Serial4.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL5
+#ifdef FLPROG_ESP32_HAS_UART5
     if (number == 5)
     {
         Serial5.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL6
+#ifdef FLPROG_ESP32_HAS_UART6
     if (number == 6)
     {
         Serial6.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL7
+#ifdef FLPROG_ESP32_HAS_UART7
     if (number == 7)
     {
         Serial7.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL8
+#ifdef FLPROG_ESP32_HAS_UART8
     if (number == 8)
     {
         Serial8.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL9
+#ifdef FLPROG_ESP32_HAS_UART9
     if (number == 9)
     {
         Serial9.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL10
+#ifdef FLPROG_ESP32_HAS_UART10
     if (number == 10)
     {
         Serial10.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP1
+#ifdef FLPROG_ESP32_HAS_UART11
     if (number == 11)
     {
         SerialLP1.end();
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP2
+#ifdef FLPROG_ESP32_HAS_UART12
     if (number == 12)
     {
         SerialLP2.end();
@@ -202,13 +202,13 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
     {
         txPin = newTxPin;
     }
-#ifdef FLPROG_STM32_USB_COM0
+#ifdef FLPROG_ESP32_HAS_UART0
     if (number == 0)
     {
         Serial.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL1
+#ifdef FLPROG_ESP32_HAS_UART1
     if (number == 1)
     {
         if (rxPin > -1)
@@ -222,7 +222,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial1.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL2
+#ifdef FLPROG_ESP32_HAS_UART2
     if (number == 2)
     {
         if (rxPin > -1)
@@ -236,7 +236,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial2.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL3
+#ifdef FLPROG_ESP32_HAS_UART3
     if (number == 3)
     {
         if (rxPin > -1)
@@ -250,7 +250,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial3.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL4
+#ifdef FLPROG_ESP32_HAS_UART4
     if (number == 4)
     {
         if (rxPin > -1)
@@ -264,7 +264,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial4.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL5
+#ifdef FLPROG_ESP32_HAS_UART5
     if (number == 5)
     {
         if (rxPin > -1)
@@ -278,7 +278,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial5.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL6
+#ifdef FLPROG_ESP32_HAS_UART6
     if (number == 6)
     {
         if (rxPin > -1)
@@ -292,7 +292,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial6.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL7
+#ifdef FLPROG_ESP32_HAS_UART7
     if (number == 7)
     {
         if (rxPin > -1)
@@ -306,7 +306,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial7.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL8
+#ifdef FLPROG_ESP32_HAS_UART8
     if (number == 8)
     {
         if (rxPin > -1)
@@ -320,7 +320,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial8.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL9
+#ifdef FLPROG_ESP32_HAS_UART9
     if (number == 9)
     {
         if (rxPin > -1)
@@ -334,7 +334,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial9.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL10
+#ifdef FLPROG_ESP32_HAS_UART10
     if (number == 10)
     {
         if (rxPin > -1)
@@ -348,7 +348,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         Serial1.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP1
+#ifdef FLPROG_ESP32_HAS_UART11
     if (number == 11)
     {
         if (rxPin > -1)
@@ -362,7 +362,7 @@ void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxP
         SerialLP1.begin(speedFromCode(), serialModeFromParametrs());
     }
 #endif
-#ifdef FLPROG_STM32_SERIAL_LP2
+#ifdef FLPROG_ESP32_HAS_UART12
     if (number == 12)
     {
         if (rxPin > -1)

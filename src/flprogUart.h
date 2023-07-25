@@ -2,6 +2,10 @@
 #include "Arduino.h"
 #include "flprogUtilites.h"
 
+#define FLPROG_USB_UART 0
+#define FLPROG_UART_UART 1
+#define FLPROG_USART_UART 2
+
 #define FLPROG_SPEED_300 0
 #define FLPROG_SPEED_600 1
 #define FLPROG_SPEED_1200 2
