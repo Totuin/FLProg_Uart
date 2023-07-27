@@ -5,6 +5,13 @@
 #ifdef ARDUINO_ARCH_ESP8266
 #include "SoftwareSerial.h"
 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_SERIAL)
+#define FLPROG_ESP8266_HAS_UART0
+#endif
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_SERIAL1)
+#define FLPROG_ESP8266_HAS_UART1
+#endif
+
 namespace flprog
 {
     SerialConfig serialModeFromInt(int16_t code);

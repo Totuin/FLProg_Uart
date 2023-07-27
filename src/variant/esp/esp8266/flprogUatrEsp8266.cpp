@@ -129,26 +129,34 @@ void FLProgUart::restartPort()
 
 void FLProgUart::end()
 {
+#ifdef FLPROG_ESP8266_HAS_UART0
     if (number == 0)
     {
         Serial.end();
     }
+#endif
+#ifdef FLPROG_ESP8266_HAS_UART1
     if (number == 1)
     {
         Serial1.end();
     }
+#endif
 }
 
 void FLProgUart::begin()
 {
+#ifdef FLPROG_ESP8266_HAS_UART0
     if (number == 0)
     {
         Serial.begin(speedFromCode(), serialModeFromParametrs());
     }
+#endif
+#ifdef FLPROG_ESP8266_HAS_UART1
     if (number == 1)
     {
         Serial1.begin(speedFromCode(), serialModeFromParametrs());
     }
+#endif
 }
 
 void FLProgUart::begin(int32_t speed, SerialConfig mode, int16_t newRxPin, int16_t newTxPin)
@@ -160,19 +168,23 @@ void FLProgUart::begin(int32_t speed, SerialConfig mode, int16_t newRxPin, int16
 
 bool FLProgUart::hasPort()
 {
-    return ((number == 0) || (number == 1));
+    return uartPort() != 0;
 };
 
 Stream *FLProgUart::uartPort()
 {
+#ifdef FLPROG_ESP8266_HAS_UART0
     if (number == 0)
     {
         return &Serial;
     }
+#endif
+#ifdef FLPROG_ESP8266_HAS_UART1
     if (number == 1)
     {
         return &Serial1;
     }
+#endif
     return 0;
 }
 
