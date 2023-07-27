@@ -2,41 +2,6 @@
 #include "Arduino.h"
 #include "flprogUtilites.h"
 
-#define FLPROG_USB_UART 0
-#define FLPROG_UART_UART 1
-#define FLPROG_USART_UART 2
-
-#define FLPROG_SPEED_300 0
-#define FLPROG_SPEED_600 1
-#define FLPROG_SPEED_1200 2
-#define FLPROG_SPEED_2400 3
-#define FLPROG_SPEED_4800 4
-#define FLPROG_SPEED_9600 5
-#define FLPROG_SPEED_14400 6
-#define FLPROG_SPEED_19200 7
-#define FLPROG_SPEED_28800 8
-#define FLPROG_SPEED_38400 9
-#define FLPROG_SPEED_57600 10
-#define FLPROG_SPEED_115200 11
-
-#define FLPROG_PORT_STOP_BITS_1 1
-#define FLPROG_PORT_STOP_BITS_2 2
-
-#define FLPROG_PORT_DATA_BITS_5 5
-#define FLPROG_PORT_DATA_BITS_6 6
-#define FLPROG_PORT_DATA_BITS_7 7
-#define FLPROG_PORT_DATA_BITS_8 8
-
-#define FLPROG_PORT_PARITY_NONE 0
-#define FLPROG_PORT_PARITY_EVEN 1
-#define FLPROG_PORT_PARITY_ODD 2
-
-namespace flprog
-{
-    int serialCodeForParametrs(byte portDataBits, byte portStopBits, byte portParity);
-    uint32_t speedFromCode(byte code);
-    uint8_t codeFromSpeed(int32_t speed);
-};
 
 class FLProgUartBasic : public FLProgStream
 {
