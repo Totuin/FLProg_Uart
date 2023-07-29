@@ -123,9 +123,11 @@ void FLProgSoftwareUart::begin()
 
 //--------------------------FLProgUart-----------------------
 
-FLProgUart::FLProgUart(uint8_t portNumber = 0, int16_t newRxPin = -1, int16_t newTxPin = -1)
+FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 {
     number = portNumber;
+    (void)newRxPin;
+    (void)newTxPin;
 }
 
 void FLProgUart::restartPort()
@@ -193,6 +195,10 @@ Stream *FLProgUart::uartPort()
 
 void FLProgUart::begin(int32_t speed, int mode, int16_t newRxPin, int16_t newTxPin)
 {
+
+    (void)newRxPin;
+    (void)newTxPin;
+
     if (speed > 0)
     {
         setCodeFromSpeed(speed);

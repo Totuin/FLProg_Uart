@@ -1,5 +1,10 @@
 #include "flprogUart.h"
 
+void FLProgUartBasic::setDeviceName(String name)
+{
+    (void)name;
+}
+
 void FLProgUartBasic::setPortSpeed(uint8_t speed)
 {
     if (portSpeed == speed)
@@ -53,7 +58,7 @@ void FLProgUartBasic::setPortStopBits(uint8_t stopBits)
 
 void FLProgUartBasic::setPortParity(uint8_t parity)
 {
-    if ((parity < 0) || (parity > 2))
+    if (parity > 2)
     {
         return;
     }
@@ -116,7 +121,7 @@ void FLProgUartBasic::begin(int32_t speed)
     begin();
 }
 
-void FLProgUartBasic::changePins(uint16_t newRxPin, uint16_t newTxPin)
+void FLProgUartBasic::changePins(int16_t newRxPin, int16_t newTxPin)
 {
     if ((rxPin != newRxPin) || (txPin != newTxPin))
     {
@@ -141,7 +146,7 @@ void FLProgUartBasic::changePort(uint16_t newPort)
     }
 }
 
-void FLProgUartBasic::changePinsAndPort(uint16_t newPort, uint16_t newRxPin, uint16_t newTxPin)
+void FLProgUartBasic::changePinsAndPort(int16_t newPort, int16_t newRxPin, int16_t newTxPin)
 {
     if ((rxPin != newRxPin) || (txPin != newTxPin) || (newPort != number))
     {
@@ -154,8 +159,3 @@ void FLProgUartBasic::changePinsAndPort(uint16_t newPort, uint16_t newRxPin, uin
         startPort();
     }
 }
-
-
-
-
-

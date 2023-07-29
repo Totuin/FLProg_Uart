@@ -27,6 +27,8 @@ UARTClass::UARTModes flprog::serialModeFromInt(int16_t code)
 FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 {
     number = portNumber;
+    (void)newRxPin;
+    (void)newTxPin;
 }
 
 void FLProgUart::end()
@@ -116,6 +118,8 @@ void FLProgUart::begin(int32_t speed, UARTClass::UARTModes mode, int16_t newRxPi
     setCodeFromSpeed(speed);
     setSerialMode(mode);
     begin();
+    (void)newRxPin;
+    (void)newTxPin;
 }
 
 UARTClass::UARTModes FLProgUart::serialModeFromParametrs()
@@ -145,10 +149,12 @@ void FLProgUart::setSerialMode(UARTClass::UARTModes mode)
         portParity = FLPROG_PORT_PARITY_ODD;
         return;
         break;
+    default:
+        portDataBits = FLPROG_PORT_DATA_BITS_8;
+        portStopBits = FLPROG_PORT_STOP_BITS_1;
+        portParity = FLPROG_PORT_PARITY_NONE;
+        break;
     }
-    portDataBits = FLPROG_PORT_DATA_BITS_8;
-    portStopBits = FLPROG_PORT_STOP_BITS_1;
-    portParity = FLPROG_PORT_PARITY_NONE;
 }
 
 #endif

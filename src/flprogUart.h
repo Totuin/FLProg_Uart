@@ -18,10 +18,10 @@ public:
     void setPortDataBits(uint8_t dataBits);
     void setPortStopBits(uint8_t stopBits);
     void setPortParity(uint8_t parity);
-    virtual void setDeviceName(String name){};
-    virtual void changePins(uint16_t newRxPin, uint16_t newTxPin);
+    virtual void setDeviceName(String name);
+    virtual void changePins(int16_t newRxPin, int16_t newTxPin);
     virtual void changePort(uint16_t newPort);
-    virtual void changePinsAndPort(uint16_t newPort, uint16_t newRxPin, uint16_t newTxPin);
+    virtual void changePinsAndPort(int16_t newPort, int16_t newRxPin, int16_t newTxPin);
 
 protected:
     virtual Stream *stream() { return uartPort(); };

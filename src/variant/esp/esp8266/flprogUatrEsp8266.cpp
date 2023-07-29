@@ -119,6 +119,8 @@ void FLProgSoftwareUart::begin()
 FLProgUart::FLProgUart(uint8_t portNumber, int16_t newRxPin, int16_t newTxPin)
 {
     number = portNumber;
+    (void)newRxPin;
+    (void)newTxPin;
 }
 
 void FLProgUart::restartPort()
@@ -164,6 +166,8 @@ void FLProgUart::begin(int32_t speed, SerialConfig mode, int16_t newRxPin, int16
     setCodeFromSpeed(speed);
     setSerialMode(mode);
     begin();
+    (void)newRxPin;
+    (void)newTxPin;
 }
 
 bool FLProgUart::hasPort()

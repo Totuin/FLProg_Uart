@@ -3,7 +3,6 @@
 #include "flprogUart.h"
 
 #ifdef FLPROG_ANON_SELECT_UART
-
 class FLProgUart : public FLProgUartBasic
 {
 public:
