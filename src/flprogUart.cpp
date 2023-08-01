@@ -131,29 +131,29 @@ void FLProgUartBasic::changePins(int16_t newRxPin, int16_t newTxPin)
     }
 }
 
-void FLProgUartBasic::changePort(uint16_t newPort)
+void FLProgUartBasic::changePort(uint8_t newPort)
 {
     if (newPort != number)
     {
-        newPort = number;
         if (hasPort())
         {
             stopPort();
         }
+        newPort = number;
         resetPort();
         setPort();
         startPort();
     }
 }
 
-void FLProgUartBasic::changePinsAndPort(int16_t newPort, int16_t newRxPin, int16_t newTxPin)
+void FLProgUartBasic::changePinsAndPort(uint8_t newPort, int16_t newRxPin, int16_t newTxPin)
 {
     if ((rxPin != newRxPin) || (txPin != newTxPin) || (newPort != number))
     {
+        stopPort();
         rxPin = newRxPin;
         txPin = newTxPin;
         newPort = number;
-        stopPort();
         resetPort();
         setPort();
         startPort();
