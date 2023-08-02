@@ -1,5 +1,4 @@
 #pragma once
-#include <Arduino.h>
 #include "flprogUart.h"
 
 #ifdef ARDUINO_ARCH_RP2040
