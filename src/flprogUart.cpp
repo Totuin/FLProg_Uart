@@ -115,12 +115,6 @@ void FLProgUartBasic::setCodeFromSpeed(int32_t speed)
     portSpeed = flprog::codeFromSpeed(speed);
 }
 
-void FLProgUartBasic::begin(int32_t speed)
-{
-    setCodeFromSpeed(speed);
-    begin();
-}
-
 void FLProgUartBasic::changePins(int16_t newRxPin, int16_t newTxPin)
 {
     if ((rxPin != newRxPin) || (txPin != newTxPin))

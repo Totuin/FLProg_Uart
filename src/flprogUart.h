@@ -1,12 +1,10 @@
 #pragma once
 #include "flprogUtilites.h"
 
-
 class FLProgUartBasic : public FLProgStream
 {
 public:
-    virtual void begin(){};
-    virtual void begin(int32_t speed);
+    virtual void begin() = 0;
     uint8_t getPortSpeed() { return portSpeed; };
     uint8_t getPortDataBits() { return portDataBits; };
     uint8_t getPortStopBits() { return portStopBits; };
@@ -21,6 +19,7 @@ public:
     virtual void changePins(int16_t newRxPin, int16_t newTxPin);
     virtual void changePort(uint8_t newPort);
     virtual void changePinsAndPort(uint8_t newPort, int16_t newRxPin, int16_t newTxPin);
+    uint8_t portNumber() { return number; };
 
 protected:
     virtual Stream *stream() { return uartPort(); };
@@ -67,13 +66,10 @@ protected:
 #include "variant/stm/stm32/flprogUartStm32.h"
 #endif
 
-
 #ifdef ARDUINO_ARCH_RP2040
 #define FLPROG_EXISTS_SELECT_UART
 #include "variant/rp2040/flprogRP2040.h"
 #endif
-
-
 
 #ifndef FLPROG_EXISTS_SELECT_UART
 #define FLPROG_EXISTS_SELECT_UART

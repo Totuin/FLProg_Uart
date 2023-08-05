@@ -34,7 +34,7 @@ class FLProgUart : public FLProgUartBasic
 {
 public:
     FLProgUart(uint8_t portNumber = 0, int16_t newRxPin = -1, int16_t newTxPin = -1);
-    void begin();
+    virtual void begin();
     void begin(int32_t speed, SerialConfig mode = SERIAL_8N1, int16_t newRxPin = -2, int16_t newTxPin = -2);
     virtual bool hasPort();
     virtual void restartPort();
