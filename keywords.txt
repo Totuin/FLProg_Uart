@@ -25,6 +25,7 @@ getPortParity	KEYWORD2
 getPortSpeed	KEYWORD2
 getPortStopBits	KEYWORD2
 hasPort	KEYWORD2
+portNumber	KEYWORD2
 restartPort	KEYWORD2
 serialModeFromInt	KEYWORD2
 serialModeFromParametrs	KEYWORD2
