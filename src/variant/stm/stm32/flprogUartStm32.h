@@ -372,4 +372,11 @@ protected:
     void setSerialMode(int16_t mode);
 };
 
+class FLProgSoftwareUart : public FLProgUartBasic
+{
+public:
+    FLProgSoftwareUart(uint8_t receivePin, uint8_t transmitPin);
+    virtual void begin(){};
+};
+
 #endif

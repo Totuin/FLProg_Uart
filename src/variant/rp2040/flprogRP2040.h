@@ -25,4 +25,11 @@ namespace flprog
     int serialModeFromParametrs(byte portDataBits, byte portStopBits, byte portParity);
 };
 
+class FLProgSoftwareUart : public FLProgUartBasic
+{
+public:
+    FLProgSoftwareUart(uint8_t receivePin, uint8_t transmitPin);
+    virtual void begin(){};
+};
+
 #endif

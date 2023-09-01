@@ -31,6 +31,7 @@ protected:
     virtual void resetPort(){};
     virtual void stopPort(){};
     virtual void startPort(){};
+    
 
     uint8_t portSpeed = FLPROG_SPEED_9600;
     uint8_t portDataBits = FLPROG_PORT_DATA_BITS_8;

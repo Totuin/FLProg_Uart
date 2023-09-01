@@ -157,4 +157,10 @@ void FLProgUart::setSerialMode(UARTClass::UARTModes mode)
     }
 }
 
+FLProgSoftwareUart::FLProgSoftwareUart(uint8_t receivePin, uint8_t transmitPin)
+{
+    (void)receivePin;
+    (void)transmitPin;
+}
+
 #endif

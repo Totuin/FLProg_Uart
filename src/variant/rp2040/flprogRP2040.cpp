@@ -354,4 +354,11 @@ int flprog::serialModeFromInt(int16_t code)
     return SERIAL_8N1;
 }
 
+
+FLProgSoftwareUart::FLProgSoftwareUart(uint8_t receivePin, uint8_t transmitPin)
+{
+    (void)receivePin;
+    (void)transmitPin;
+}
+
 #endif

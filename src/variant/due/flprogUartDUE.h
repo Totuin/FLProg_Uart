@@ -27,4 +27,11 @@ protected:
   bool portIsInit = false;
 };
 
+class FLProgSoftwareUart : public FLProgUartBasic
+{
+public:
+    FLProgSoftwareUart(uint8_t receivePin, uint8_t transmitPin);
+    virtual void begin(){};
+};
+
 #endif
